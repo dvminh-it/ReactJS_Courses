@@ -1,44 +1,33 @@
+import axios from 'axios';
 const DOMAIN = 'http://localhost:3001/', LIMIT = 3
 
 export function getApi() {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}`)
-            .then((response) => response.json())
-            .then(res => resolve(res))
+        axios.get(`${DOMAIN}`)
+            .then(res => { resolve(res.data); })
             .catch((err) => reject(err))
     })
 }
 
-export function addApi(data) {  
+export function addApi(data) {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data.payload)
-        })
-            .then((response) => response.json())
-            .then((res) => resolve(res))
+        axios.post(`${DOMAIN}`, { ...data.payload })
+            .then((res) => resolve(res.data))
             .catch((err) => reject(err));
     });
 }
 
 export function updateApi(data) {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}${data.payload.id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data.payload)
-        })
-            .then((response) => response.json())
-            .then((res) => resolve(res))
+        axios.put(`${DOMAIN}${data.payload.id}`, { ...data.payload })
+            .then((res) => resolve(res.data))
             .catch((err) => reject(err));
     });
 }
 
 export function deleteApi(data) {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}${data.payload.id}`, { method: 'DELETE' })
-            .then((response) => response.json())
+        axios.delete(`${DOMAIN}${data.payload.id}`)
             .then((res) => resolve(res))
             .catch((err) => reject(err));
     });
@@ -46,9 +35,8 @@ export function deleteApi(data) {
 
 export function searchApi(data) {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}search/?name=${data.payload.name}`)
-            .then((response) => response.json())
-            .then((res) => {resolve(res); })
+        axios.get(`${DOMAIN}search`, { params: { name: data.payload.name } })
+            .then((res) => { resolve(res.data); })
             .catch((err) => reject(err));
     })
 }
@@ -56,18 +44,27 @@ export function searchApi(data) {
 export function paginateApi(data) {
 
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}pagination?activePage=${data.payload.activePage}&limit=${LIMIT}`)
-            .then((response) => response.json())
-            .then((res) => resolve(res))
+        axios.get(`${DOMAIN}pagination`, {
+            params: {
+                activePage: data.payload.activePage,
+                limit: LIMIT
+            }
+        })
+            .then((res) => resolve(res.data))
             .catch((err) => reject(err));
     });
 }
 
 export function searchPaginateApi(data) {
     return new Promise((resolve, reject) => {
-        fetch(`${DOMAIN}searchPaginate?activePage=${data.payload.activePage}&limit=${LIMIT}&name=${data.payload.name}`)
-            .then((response) => response.json())
-            .then((res) => resolve(res))
+        axios.get(`${DOMAIN}searchPaginate`, {
+            params: {
+                activePage: data.payload.activePage,
+                limit: LIMIT,
+                name: data.payload.name
+            }
+        })
+            .then((res) => resolve(res.data))
             .catch((err) => reject(err));
     });
 }

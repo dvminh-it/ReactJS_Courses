@@ -5,7 +5,8 @@ import * as API from "../api"
 
 function* getUser() {
     try {
-        const res = yield API.getApi()
+        const res = yield API.getApi() 
+        console.error(res);
         yield put(actions.getSuccess(res));
     } catch (err) {
         yield put(actions.getFailure());
@@ -74,7 +75,7 @@ function* searchUser(payload) {
         const res = yield API.searchApi(payload)
         yield put(actions.searchSuccess(res));
     } catch (err) {
-        yield put(actions.searchFailure());
+        yield put(actions.searchFailure(err));
     }
 }
 
@@ -84,7 +85,7 @@ function* paginateUser(data) {
         if (res.totalPages === 0) res.totalPages = 1
         yield put(actions.paginateSuccess(res));
     } catch (err) {
-        yield put(actions.paginateFailure());
+        yield put(actions.paginateFailure(err));
     }
 }
 

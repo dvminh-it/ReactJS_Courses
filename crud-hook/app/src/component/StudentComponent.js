@@ -7,17 +7,17 @@ export default function StudentComponent() {
         // listStudents,
         paginateUsers,
         totalPages, activePage,
-        //handleGetStudents,
+        handleGetStudents,
         handleAddStudents,
         handleUpdateStudents,
         handleDeleteStudents,
-        handleSearchStudents,
+        // handleSearchStudents,
         handlePaginateStudents,
         handleSearchPaginateStudents
     } = UseStudent();
 
     useEffect(() => {
-        // handleGetStudents()
+        handleGetStudents()
         handlePaginateStudents({ activePage: 1 })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
