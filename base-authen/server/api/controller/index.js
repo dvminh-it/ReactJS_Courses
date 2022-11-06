@@ -1,7 +1,6 @@
 const studentModel = require('../model');
 
 const getStudent = async (req, res) => {
-    console.log(getStudent);
     try {
         const listStudent = await studentModel.find({});
         res.send({
