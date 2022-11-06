@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Table } from 'react-bootstrap';
+import { Table, Button, InputGroup, Form } from 'react-bootstrap';
 import { Helmet } from 'react-helmet'
 
 import UseUser from "../../hooks/useUser";
+
 export default function ComponentUser() {
     const {
         items,
@@ -29,12 +30,20 @@ export default function ComponentUser() {
     }
 
     return (
-        <div>
+        <div style={{ padding: "20px" }}>
             <Helmet>
                 <title>Người dùng</title>
             </Helmet>
-            <input onChange={(e) => { setNameSearch(e.target.value) }}></input>
-            <button onClick={() => { searchItem({ nameSearch: nameSearch }) }}>Search</button>
+            <InputGroup className="mb-3">
+                <Form.Control
+                    placeholder="Recipient's username"
+                    onChange={(e) => { setNameSearch(e.target.value) }}
+                />
+                <Button variant="outline-secondary"
+                    onClick={() => { searchItem({ nameSearch: nameSearch }) }}>
+                    Search
+                </Button>
+            </InputGroup>
             <Table striped bordered hover className="text-center">
                 <thead>
                     <tr>
@@ -43,14 +52,14 @@ export default function ComponentUser() {
                     </tr>
                 </thead>
                 <tbody>
-                    {listData}
+                    {listData.length !== 0 ? listData : <p>Không có dữ liệu trả về</p>}
                 </tbody>
             </Table>
-            <button onClick={() => {
+            <Button onClick={() => {
                 localStorage.removeItem('token')
                 localStorage.removeItem('role')
                 window.location.href = '/'
-            }}>Đăng xuất</button>
+            }}>Đăng xuất</Button>
         </div>
     )
 }

@@ -22,12 +22,13 @@ function* logIn(data) {
     try {
         const res = yield callApi('POST', `/login`, data.payload)
         // const res = yield newApi.login(data)
-        alert(res.role, res.token);
+
         if (res.userNameErrMess) {
             alert(res.userNameErrMess)
         } else if (res.passwordErrMess) {
             alert(res.passwordErrMess)
         } else {
+            alert(res.message);
             yield put(actions.loginSuccess())
             localStorage.setItem('token', res.token)
             localStorage.setItem('role', res.role)
@@ -41,8 +42,7 @@ function* logIn(data) {
 function* getListItem() {
     try {
         const res = yield callApi('GET', '/student')
-        yield put(actions.getStudentSuccess(
-            { listStudent: res.listStudent }
+        yield put(actions.getStudentSuccess(res
         ))
     } catch (error) {
         yield put(actions.getStudentFailure({
@@ -80,9 +80,7 @@ function* updateItem(data) {
 function* searchItem(data) {
     try {
         const res = yield callApi('GET', `/student/search?textSearch=${data.payload.nameSearch}`)
-        yield put(actions.searchSuccess({
-            searchStudent: res.search
-        }))
+        yield put(actions.searchSuccess(res))
     } catch (error) {
         yield put(actions.searchFailure({ errorMessage: error.Message }))
     }

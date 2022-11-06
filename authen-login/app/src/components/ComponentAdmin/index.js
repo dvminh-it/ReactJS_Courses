@@ -2,23 +2,34 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
 import { Helmet } from 'react-helmet'
-import UseAdmin from '../../hooks/useAdmin'
+
+import axios from 'axios';
+import { DOMAIN } from "../../constants";
+import useAdmin from '../../hooks/useAdmin'
+
 export default function ComponentAdmin() {
 
     const {
-        items,
+        // items,
         initLoad,
         addItem,
         updateItem,
         deleteItem,
         searchItem
-    } = UseAdmin()
+    } = useAdmin();
 
+    const [items, setItems] = useState([])
     useEffect(() => {
-        initLoad();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // initLoad()
+        axios.get(`${DOMAIN}/student`, {
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => setItems(res.data.data))
+            .then(err => err)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
     const [nameAdd, setNameAdd] = useState('')
     const [update, setUpdate] = useState({ id: '', name: '' })
     const [nameSearch, setNameSearch] = useState('')
@@ -62,10 +73,11 @@ export default function ComponentAdmin() {
                     <tr>
                         <th>ID</th>
                         <th>Tên</th>
+                        <th colSpan={2}>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {listData}
+                    {listData.length !== 0 ? listData : <tr><td colSpan={4}><p>Không có dữ liệu trả về</p></td></tr>}
                 </tbody>
             </Table>
             <button onClick={() => {

@@ -25,5 +25,9 @@ export const actions = {
     deleteStudentRequest: createAction(types.DELETE_STUDENT_REQUEST),
     deleteStudentSuccess: createAction(types.DELETE_STUDENT_SUCCESS),
     deleteStudentFailure: createAction(types.DELETE_STUDENT_FAILURE),
+
+    searchRequest: createAction(types.SEARCH_REQUEST),
+    searchSuccess: createAction(types.SEARCH_SUCCESS),
+    searchFailure: createAction(types.SEARCH_FAILURE),
     
 }

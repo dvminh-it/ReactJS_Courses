@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+
 
 import pkg from 'express-jwt';
 const { expressjwt, ExpressJwtRequest } = pkg;

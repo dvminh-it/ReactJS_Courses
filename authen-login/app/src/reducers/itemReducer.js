@@ -29,7 +29,7 @@ const ItemReducer = (state = DEFAULT_STATE, actions) => {
                 dataFetched: true,
                 error: false,
                 errorMessage: null,
-                listData: actions.payload.searchStudent,
+                listData: actions.payload.data,
             }
         case types.ADD_STUDENT_SUCCESS:
         case types.DELETE_STUDENT_SUCCESS:
@@ -44,7 +44,6 @@ const ItemReducer = (state = DEFAULT_STATE, actions) => {
 
         case types.SIGN_UP_SUCCESS:
         case types.LOGIN_SUCCESS:
-            console.warn(actions);
             return {
                 ...state,
                 isFetching: false,

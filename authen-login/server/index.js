@@ -15,7 +15,7 @@ connect('mongodb://localhost:27017/quiz_app', {
     useFindAndModify: false,
 })
     .then(() => {
-        console.log('successful database connection');
+        //console.log('successful database connection');
     })
     .catch((err) => {
         console.log(err);
@@ -32,4 +32,3 @@ app.use(function (req, res) {
 
 app.listen(port);
 
-console.log('Server started on: ' + port);

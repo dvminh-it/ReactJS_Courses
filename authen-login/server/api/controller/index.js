@@ -1,10 +1,11 @@
 import studentModel from '../model/index.js';
 
 const getStudent = async (req, res) => {
+    console.log(getStudent);
     try {
         const listStudent = await studentModel.find({});
         res.send({
-            listStudent,
+            data: listStudent,
             message: 'get student successfully',
         });
     } catch (error) {
@@ -16,7 +17,6 @@ const getStudent = async (req, res) => {
 const addStudent = async (req, res) => {
     try {
         const data = req.body;
-        console.log(data);
         const addStudent = await studentModel.create({
             name: data.nameAdd,
             age: data.age,
@@ -63,7 +63,7 @@ const searchStudent = async (req, res) => {
         const searchStudent = await studentModel.find({
             name: { $regex: textSearch, $options: 'i' },
         });
-        res.send({ search: searchStudent, message: 'search student successfully' });
+        res.send({ data: searchStudent, message: 'search student successfully' });
     } catch (error) {
         res.send({ message: error });
     }
