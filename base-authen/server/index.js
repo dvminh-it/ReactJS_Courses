@@ -1,15 +1,14 @@
-import express from 'express';
-import pkg from 'mongoose';
-var { Promise, connect } = pkg;
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import routes from './api/route/index.js';
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const routes = require('./api/route');
+const cors = require('cors')
 
-const app = express()
-const port = process.env.PORT || 3001
+const app = express();
+const port = process.env.PORT || 3001;
 
-Promise = global.Promise;
-connect('mongodb://localhost:27017/quiz_app', {
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/quiz_app', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -31,4 +30,3 @@ app.use(function (req, res) {
 });
 
 app.listen(port);
-

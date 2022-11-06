@@ -1,10 +1,8 @@
-import accountModel from '../model/account.js';
-import { hash, compare } from 'bcrypt';
-import pkg from 'jsonwebtoken';
-const { sign } = pkg;
+const accountModel = require('../model/account.js');
+const { hash, compare } = require('bcrypt');
+const { sign } = require('jsonwebtoken');
 
 const register = async (req, res) => {
-
     try {
         const userName = req.body.userName;
         const password = req.body.password;
@@ -32,12 +30,10 @@ const login = async (req, res) => {
         const password = req.body.password;
         const check = await accountModel.findOne({ userName });
         if (check) {
-            const checkPassword = await compare(
-                password,
-                check.password,
-            );
+            const checkPassword = await compare(password, check.password);
             if (checkPassword) {
-                const data = await accountModel.findById(check._id)
+                const data = await accountModel
+                    .findById(check._id)
                     .select('-password'); // lấy tất cả cột trừ password
                 const role = data.role;
                 const token = sign({ data }, 'secret', {
@@ -55,4 +51,4 @@ const login = async (req, res) => {
     }
 };
 
-export { register, login };
+module.exports = { register, login };

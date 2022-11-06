@@ -1,9 +1,7 @@
+var jwt = require('jsonwebtoken');
+var { expressjwt: jwt } = require('express-jwt');
 
-
-import pkg from 'express-jwt';
-const { expressjwt, ExpressJwtRequest } = pkg;
-
-const verify = expressjwt({
+const verify = jwt({
     secret: 'secret',
     algorithms: ['HS256'],
     getToken: function fromHeaderOrQuerystring(req) {
@@ -12,8 +10,7 @@ const verify = expressjwt({
             req.headers.authorization.split(' ')[0] === 'Bearer'
         )
             return req.headers.authorization.split(' ')[1];
-        else if (req.query && req.query.token)
-            return req.query.token;
+        else if (req.query && req.query.token) return req.query.token;
         return null;
     },
 });
@@ -26,7 +23,4 @@ const role = (req, res, next) => {
         return next();
     }
 };
-export  {
-    role,
-    verify
-};
+module.exports = { role, verify };

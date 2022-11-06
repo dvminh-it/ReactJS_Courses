@@ -1,4 +1,4 @@
-import studentModel from '../model/index.js';
+const studentModel = require('../model');
 
 const getStudent = async (req, res) => {
     console.log(getStudent);
@@ -33,7 +33,10 @@ const deleteStudent = async (req, res) => {
     try {
         const id = req.params.id;
         const delStudent = await studentModel.findByIdAndDelete(id);
-        res.send({ student: delStudent, message: 'delete student successfully' });
+        res.send({
+            student: delStudent,
+            message: 'delete student successfully',
+        });
     } catch (error) {
         res.send({
             message: error,
@@ -63,16 +66,13 @@ const searchStudent = async (req, res) => {
         const searchStudent = await studentModel.find({
             name: { $regex: textSearch, $options: 'i' },
         });
-        res.send({ data: searchStudent, message: 'search student successfully' });
+        res.send({
+            data: searchStudent,
+            message: 'search student successfully',
+        });
     } catch (error) {
         res.send({ message: error });
     }
 };
 
-export   {
-    getStudent,
-    addStudent,
-    deleteStudent,
-    updateStudent,
-    searchStudent,
-};
+module.exports = { getStudent, addStudent, deleteStudent, updateStudent, searchStudent };

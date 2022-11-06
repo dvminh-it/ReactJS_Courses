@@ -10,7 +10,7 @@ import useAdmin from '../../hooks/useAdmin'
 export default function ComponentAdmin() {
 
     const {
-        // items,
+        items,
         initLoad,
         addItem,
         updateItem,
@@ -18,16 +18,16 @@ export default function ComponentAdmin() {
         searchItem
     } = useAdmin();
 
-    const [items, setItems] = useState([])
+    // const [items, setItems] = useState([])
     useEffect(() => {
-        // initLoad()
-        axios.get(`${DOMAIN}/student`, {
-            headers: {
-                "authorization": `Bearer ${localStorage.getItem('token')}`
-            }
-        })
-            .then(res => setItems(res.data.data))
-            .then(err => err)
+        initLoad()
+        // axios.get(`${DOMAIN}/student`, {
+        //     headers: {
+        //         "authorization": `Bearer ${localStorage.getItem('token')}`
+        //     }
+        // })
+        //     .then(res => setItems(res.data.data))
+        //     .then(err => err)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const [nameAdd, setNameAdd] = useState('')
