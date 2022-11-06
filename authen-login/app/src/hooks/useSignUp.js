@@ -4,7 +4,7 @@ import { actions } from "../actions"
 const UseSignUp = () => {
     const dispatch = useDispatch();
 
-    const signUp = () => dispatch(actions.signUpRequest())
+    const signUp = (data) => dispatch(actions.signUpRequest(data))
 
     return {
         signUp,

@@ -4,19 +4,22 @@ import pkg from 'jsonwebtoken';
 const { sign } = pkg;
 
 const register = async (req, res) => {
+
     try {
         const userName = req.body.userName;
         const password = req.body.password;
         const check = await accountModel.findOne({ userName });
         if (check) {
-            res.send({ messageFailure: 'tài khoản đã tồn tại' });
+            console.log('tài khoản đã tồn tại');
+            res.send({ message: 'tài khoản đã tồn tại' });
         } else {
             const encryptPassword = await hash(password, 10);
             const registerAcc = await accountModel.create({
                 userName: userName,
                 password: encryptPassword,
             });
-            res.send({ registerAcc, messageSuccess: 'tạo tài khoản thành công' });
+            console.log();
+            res.send({ registerAcc, message: 'Đăng ký thành công' });
         }
     } catch (error) {
         console.log(error);
@@ -40,7 +43,7 @@ const login = async (req, res) => {
                 const token = sign({ data }, 'secret', {
                     expiresIn: '15m',
                 });
-                res.send({ token, role, message: 'dang nhap thanh cong' });
+                res.send({ token, role, message: 'Đăng nhập thành công' });
             } else {
                 res.send({ passwordErrMess: 'sai mật khẩu' });
             }
@@ -52,4 +55,4 @@ const login = async (req, res) => {
     }
 };
 
-export  { register, login };
+export { register, login };

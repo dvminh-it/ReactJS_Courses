@@ -33,7 +33,7 @@ export default function ComponentLogin() {
                                     }
                                 }}
                             />
-                            <p style={{ display: validateUserName === false ? 'block' : 'none', color: 'red' }}>Yêu cầu nhập đúng định dạng</p>
+                            {/* <p style={{ display: validateUserName === false ? 'block' : 'none', color: 'red' }}>Yêu cầu nhập đúng định dạng</p> */}
                         </div>
                         <div className="form-group mt-3">
                             <label>Password</label>

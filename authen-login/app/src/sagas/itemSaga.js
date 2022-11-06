@@ -3,6 +3,40 @@ import { put, takeEvery } from "redux-saga/effects";
 
 import * as types from '../constants'
 import callApi from '../fetchAPIs/callAPI'
+// import * as newApi from '../fetchAPIs/newApi'
+function* signUp(data) {
+    try {
+        const res = yield callApi('POST', `/register`, {
+            userName: data.payload.userName,
+            password: data.payload.password
+        })
+        yield put(actions.signUpSuccess(res))
+        alert(res.message)
+        if (res.message === "Đăng ký thành công")
+            window.location.href = '/'
+    } catch (error) {
+        yield put(actions.signUpFailure(error))
+    }
+}
+function* logIn(data) {
+    try {
+        const res = yield callApi('POST', `/login`, data.payload)
+        // const res = yield newApi.login(data)
+        alert(res.role, res.token);
+        if (res.userNameErrMess) {
+            alert(res.userNameErrMess)
+        } else if (res.passwordErrMess) {
+            alert(res.passwordErrMess)
+        } else {
+            yield put(actions.loginSuccess())
+            localStorage.setItem('token', res.token)
+            localStorage.setItem('role', res.role)
+            window.location.reload()
+        }
+    } catch (error) {
+        yield put(actions.loginFailure(error))
+    }
+}
 
 function* getListItem() {
     try {
@@ -54,38 +88,7 @@ function* searchItem(data) {
     }
 }
 
-function* signUp(data) {
-    console.error('single sign');
-    try {
-        const res = yield callApi('POST', `/register`, { userName: data.payload.userName, password: data.payload.password })
-        if (res.messageFailure) {
-            alert(res.messageFailure)
-        } else {
-            yield put(actions.signUpSuccess())
-            alert('Đăng ký thành công')
-           // window.location.href = '/'
-        }
-    } catch (error) {
-        yield put(actions.signUpFailure())
-    }
-}
-function* logIn(data) {
-    try {
-        const res = yield callApi('POST', `/login`, data.payload)
-        if (res.userNameErrMess) {
-            alert(res.userNameErrMess)
-        } else if (res.passwordErrMess) {
-            alert(res.passwordErrMess)
-        } else {
-            yield put(actions.loginStudentSuccess())
-            localStorage.setItem('token', res.token)
-            localStorage.setItem('role', res.role)
-            window.location.reload()
-        }
-    } catch (error) {
-        yield put(actions.loginStudentFailure)
-    }
-}
+
 
 export const ItemSaga = [
     takeEvery(types.GET_STUDENT_REQUEST, getListItem),

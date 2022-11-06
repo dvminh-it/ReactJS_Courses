@@ -1,8 +1,8 @@
 import React from "react";
-import UseUser from '../hooks/useUser'
+import ComponentUser from '../components/ComponentUser'
 
 export default function UserPage() {
     return (
-        <UseUser />
+        <ComponentUser />
     )
 }

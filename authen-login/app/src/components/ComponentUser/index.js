@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
+import { Helmet } from 'react-helmet'
 
 import UseUser from "../../hooks/useUser";
 export default function ComponentUser() {
@@ -7,7 +8,12 @@ export default function ComponentUser() {
         items,
         initLoad,
         searchItem
-    } = UseUser()
+    } = UseUser();
+
+    useEffect(() => {
+        initLoad()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const [nameSearch, setNameSearch] = useState('')
     let listData = []
@@ -21,12 +27,12 @@ export default function ComponentUser() {
             )
         })
     }
-    useEffect(() => {
-        initLoad()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+
     return (
         <div>
+            <Helmet>
+                <title>Người dùng</title>
+            </Helmet>
             <input onChange={(e) => { setNameSearch(e.target.value) }}></input>
             <button onClick={() => { searchItem({ nameSearch: nameSearch }) }}>Search</button>
             <Table striped bordered hover className="text-center">

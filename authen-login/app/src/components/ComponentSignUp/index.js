@@ -9,7 +9,6 @@ export default function ComponentSignUp() {
     const {
         signUp
     } = UseSignUp();
-
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [validateUserName, setValidateUserName] = useState(true)
@@ -58,14 +57,16 @@ export default function ComponentSignUp() {
                         <div className="d-grid gap-2 mt-3" >
                             <button type="submit" className="btn btn-primary"
                                 onClick={() => {
-                                    // if (validatePassword === false || validateUserName === false) {
-                                    //     alert('Vui lòng nhập đúng thông tin')
-                                    // } else if (password === '' || userName === '') {
-                                    //     alert('Vui lòng không được để trống')
-                                    // } else {
-                                    signUp({ userName: userName, password: password })
-                                    // }
-                                }}>
+                                    if (validatePassword === false || validateUserName === false) {
+                                        alert('Vui lòng nhập đúng thông tin')
+                                    } else if (password === '' || userName === '') {
+                                        alert('Vui lòng không được để trống')
+                                    } else {
+                                        signUp({ userName: userName, password: password })
+                                    }
+                                    console.error(userName + ' ' + password);
+                                }
+                                }>
                                 Đăng ký
                             </button>
                         </div>

@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { actions } from '../actions'
-export default function UseAdmin() {
+const UseAdmin= () => {
     const dispatch = useDispatch()
 
     const items = useSelector(state => state.items.listData)
 
     const initLoad = () => dispatch(actions.getStudentRequest())
-    const addItem = () => dispatch(actions.addStudentRequest())
-    const updateItem = () => dispatch(actions.searchRequest())
-    const deleteItem = () => dispatch(actions.updateStudentRequest())
-    const searchItem = () => dispatch(actions.deleteStudentRequest())
+    const addItem = (data) => dispatch(actions.addStudentRequest(data))
+    const updateItem = (data) => dispatch(actions.searchRequest(data))
+    const deleteItem = (data) => dispatch(actions.updateStudentRequest(data))
+    const searchItem = (data) => dispatch(actions.deleteStudentRequest(data))
     
     return (
         items,
@@ -20,3 +20,4 @@ export default function UseAdmin() {
         searchItem
     )
 }
+export default UseAdmin 

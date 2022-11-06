@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { actions } from "../actions"
 
-const UseUser = () => {
+const ComponentUser = () => {
     const dispatch = useDispatch();
 
     const items = useSelector(state => state.items.listData);
@@ -16,4 +16,4 @@ const UseUser = () => {
     }
 }
 
-export default UseUser
+export default ComponentUser

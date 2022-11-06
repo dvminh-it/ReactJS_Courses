@@ -44,10 +44,11 @@ const ItemReducer = (state = DEFAULT_STATE, actions) => {
 
         case types.SIGN_UP_SUCCESS:
         case types.LOGIN_SUCCESS:
+            console.warn(actions);
             return {
                 ...state,
                 isFetching: false,
-                dataFetched: true
+                dataFetched: true,
             }
         case types.ADD_STUDENT_FAILURE:
         case types.UPDATE_STUDENT_FAILURE:

@@ -6,6 +6,9 @@ var token = localStorage.getItem('token')
 var role = localStorage.getItem('role')
 const Routes = () => (
     <div className="content">
+        {
+            console.warn(`role: ` + role)
+        }
         <Router history={history}>
             <Switch>
                 <Route exact path="/" >

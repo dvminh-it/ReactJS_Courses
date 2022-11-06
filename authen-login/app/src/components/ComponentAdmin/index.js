@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from 'react-bootstrap';
-
+import { Helmet } from 'react-helmet'
 import UseAdmin from '../../hooks/useAdmin'
 export default function ComponentAdmin() {
 
@@ -14,9 +14,11 @@ export default function ComponentAdmin() {
         searchItem
     } = UseAdmin()
 
+    useEffect(() => {
+        initLoad();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { initLoad() }, [])
-    
+    }, [])
+
     const [nameAdd, setNameAdd] = useState('')
     const [update, setUpdate] = useState({ id: '', name: '' })
     const [nameSearch, setNameSearch] = useState('')
@@ -40,6 +42,9 @@ export default function ComponentAdmin() {
     }
     return (
         <div>
+            <Helmet>
+                <title>Admin</title>
+            </Helmet>
             <input
                 onChange={(e) => { setNameAdd(e.target.value) }}></input>
             <button
